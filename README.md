@@ -1,2 +1,2 @@
-# Muse-to-YouTube-Playlist
-Converts a Muse playlist (mobile app) to a YouTube playlist
+# Musi-to-YouTube-Playlist
+Converts a Musi playlist (mobile app) to a YouTube playlist
