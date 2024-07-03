@@ -12,7 +12,7 @@ import googleapiclient.errors
 SCOPES = ["https://www.googleapis.com/auth/youtube.force-ssl"]
 API_SERVICE_NAME = "youtube"
 API_VERSION = "v3"
-CLIENT_SECRETS_FILE = "client_secrets.json"
+CLIENT_SECRETS_FILE = "client_secrets.json" # Add .json file to directory
 
 # Obtain user credentials
 flow = InstalledAppFlow.from_client_secrets_file(CLIENT_SECRETS_FILE, SCOPES)
@@ -42,7 +42,8 @@ chrome_options = Options()
 chrome_options.add_argument("--headless")
 driver = webdriver.Chrome(options=chrome_options)
 
-playlist_url = 'https://feelthemusi.com/playlist/kzuybo'
+# INSERT MUSI PLAYLIST URL HERE
+playlist_url = ''
 # Load the webpage
 driver.get(playlist_url)
 
