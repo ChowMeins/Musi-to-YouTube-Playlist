@@ -42,8 +42,9 @@ chrome_options = Options()
 chrome_options.add_argument("--headless")
 driver = webdriver.Chrome(options=chrome_options)
 
+playlist_url = 'https://feelthemusi.com/playlist/kzuybo'
 # Load the webpage
-driver.get('https://feelthemusi.com/playlist/kzuybo')
+driver.get(playlist_url)
 
 # Wait for the JavaScript to load the content (if necessary)
 driver.implicitly_wait(10)  # Waits for 10 seconds
@@ -56,7 +57,6 @@ soup = BeautifulSoup(html_content, 'html5lib')
 driver.quit()
 
 # Use BeautifulSoup to parse the content and insert the youtube ID's into the playlist
-playlist_vids_to_add = []
 playlist_content = soup.find_all('a', class_='track')
 for element in playlist_content:
     youtube_id = str(element.get('href')[-11:])
