@@ -12,18 +12,19 @@ import googleapiclient.errors
 SCOPES = ["https://www.googleapis.com/auth/youtube.force-ssl"]
 API_SERVICE_NAME = "youtube"
 API_VERSION = "v3"
-CLIENT_SECRETS_FILE = "client_secrets.json"
+CLIENT_SECRETS_FILE = "client_secrets.json" # Add .json file to directory
 
 # Obtain user credentials
-flow = InstalledAppFlow.from_client_secrets_file(CLIENT_SECRETS_FILE, SCOPES)
-credentials = flow.run_local_server()
-youtube = googleapiclient.discovery.build(API_SERVICE_NAME, API_VERSION, credentials=credentials)
+flow = InstalledAppFlow.from_client_secrets_file(CLIENT_SECRETS_FILE, SCOPES) # This is part of the google-auth-oauthlib library. It is used to handle the OAuth 2.0 flow for desktop or command-line applications.
+credentials = flow.run_local_server() # This method starts a local web server to handle the OAuth authorization process.
+youtube = googleapiclient.discovery.build(API_SERVICE_NAME, API_VERSION, credentials=credentials) # This function creates a service object for interacting with a specific Google API.
 
 # Create request body for creating the YouTube Playlist
+# https://developers.google.com/youtube/v3/docs/playlists/insert 
 request_body = {
     "snippet": {
         "title": "Musi Playlist",
-        "description": "A playlist created with the YouTube API",
+        "description": "A playlist created with the YouTube API from Musi.",
         "defaultLanguage": "en"
     },
     "status": {
@@ -42,7 +43,8 @@ chrome_options = Options()
 chrome_options.add_argument("--headless")
 driver = webdriver.Chrome(options=chrome_options)
 
-playlist_url = 'https://feelthemusi.com/playlist/kzuybo'
+# INSERT MUSI PLAYLIST URL HERE
+playlist_url = ''
 # Load the webpage
 driver.get(playlist_url)
 
@@ -51,7 +53,7 @@ driver.implicitly_wait(10)  # Waits for 10 seconds
 
 # Get the page source and pass it to BeautifulSoup
 html_content = driver.page_source
-soup = BeautifulSoup(html_content, 'html5lib')
+soup = BeautifulSoup(html_content, 'html.parser')
 
 # Close the WebDriver
 driver.quit()
@@ -76,4 +78,4 @@ for element in playlist_content:
     )
     response = request.execute()
 
-print("Conversion Completed!")
+print("Conversion Completed! Exiting Program...")
