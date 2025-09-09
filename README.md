@@ -27,7 +27,7 @@ The script extracts song information from a Musi playlist URL and automatically 
 
 ### Step 1: Install Dependencies
 ```bash
-pip install google-auth google-auth-oauthlib google-auth-httplib2 google-api-python-client requests beautifulsoup4
+pip install google-auth google-auth-oauthlib google-auth-httplib2 google-api-python-client requests beautifulsoup4 selenium
 ```
 
 ### Step 2: Google API Configuration
@@ -60,13 +60,14 @@ pip install google-auth google-auth-oauthlib google-auth-httplib2 google-api-pyt
 
 3. **Run the script**
    ```bash
-   python musi_to_youtube.py
+   python webscrape.py
    ```
 
-4. **Authentication**
+4. **Authentication and Execution**
    - The script will open a browser window for Google authentication
-   - Sign in to your Google account
-   - Grant permissions for YouTube access
+   - Sign in to your Google account and grant YouTube permissions
+   - Selenium will launch headless Chrome to scrape the Musi playlist
+   - Videos will be automatically added to your new YouTube playlist
 
 5. **Verify results**
    - Check your YouTube account for the newly created playlist
@@ -75,23 +76,18 @@ pip install google-auth google-auth-oauthlib google-auth-httplib2 google-api-pyt
 ## How It Works
 
 ### Process Overview
-1. **Playlist Parsing**: Extracts song titles and artists from the Musi playlist URL
+1. **Playlist Parsing**: Extracts song titles and artists by parsing the HTML source code from the Musi Playlist URL
 2. **YouTube Authentication**: Authenticates with YouTube API using OAuth 2.0
 3. **Playlist Creation**: Creates a new playlist on your YouTube account
 4. **Song Search**: Searches YouTube for each song from the Musi playlist
 5. **Song Addition**: Adds found songs to the newly created YouTube playlist
-
-### Error Handling
-- Songs that cannot be found on YouTube are logged for manual review
-- Authentication errors provide clear instructions for resolution
-- Network issues are handled with appropriate retry mechanisms
 
 ## Configuration
 
 ### File Structure
 ```
 Musi-to-YouTube-Playlist/
-├── musi_to_youtube.py      # Main script file
+├── webscrape.py      # Main script file
 ├── client_secrets.json     # Google API credentials (you provide)
 └── README.md              # This file
 ```
@@ -115,6 +111,12 @@ Musi-to-YouTube-Playlist/
 ### Musi App Dependencies
 - Requires valid Musi playlist URLs
 - Changes to Musi's website structure may affect functionality
+- Selenium WebDriver depends on Chrome browser compatibility
+
+### Browser Requirements
+- Requires Google Chrome browser
+- ChromeDriver must match Chrome version
+- Headless browsing option available for server environments
 
 ## Privacy and Security
 
@@ -126,14 +128,3 @@ Musi-to-YouTube-Playlist/
 ### Permissions
 - Script requires YouTube account access for playlist creation and modification
 - Only necessary permissions are requested through OAuth flow
-
-## Technical Details
-
-### Supported Formats
-- Musi playlist URLs from the mobile application
-- Public and private playlists (with appropriate access)
-
-### Output Format
-- Creates standard YouTube playlists
-- Preserves original song order when possible
-- Maintains playlist metadata where available
