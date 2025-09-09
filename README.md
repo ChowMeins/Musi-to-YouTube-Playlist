@@ -21,6 +21,7 @@ The script extracts song information from a Musi playlist URL and automatically 
 - google-api-python-client
 - requests
 - beautifulsoup4
+- selenium
 
 ## Setup Instructions
 
